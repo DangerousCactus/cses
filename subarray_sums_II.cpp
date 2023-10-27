@@ -13,28 +13,29 @@ typedef vector<int> vi;
 int main() {
   cin.tie(0)->sync_with_stdio(0);
 
-  int n, x;
+  ll n, x;
   cin >> n >> x;
 
-  queue<int> q;
-  int sum = 0;
-  int ans = 0;
+  vector<ll> nums(n);
+  for (auto &z: nums) {
+    cin >> z;
+  }
+
+  vector<ll> partial(n);
+  partial_sum(all(nums), partial.begin());
+
+  map<ll, int> m;
+  for (auto &z: partial) {
+    m[z]++;
+  }
+
+  ll ans = 0;
+  ans += m[x];
 
   rep(i, 0, n) {
-    int c;
-    cin >> c;
-
-    q.push(c);
-    sum += c;
-
-    while (sum > x) {
-      sum -= q.front();
-      q.pop();
-    }
-
-    if (sum == x) {
-      ans++;
-    }
+    auto z = partial[i];
+    m[partial[i]]--;
+    ans += m[x + z];
   }
 
   cout << ans;
