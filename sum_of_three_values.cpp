@@ -29,9 +29,6 @@ int main() {
 
   sort(all(nums));
 
-  auto i = nums.begin();
-  auto j = next(i);
-
   for (auto i = nums.begin(); i != nums.end(); i++) {
     for (auto j = next(i); j != nums.end(); j++) {
       auto k = lower_bound(next(j), nums.end(), pii{t - i->first - j->first, -1});
